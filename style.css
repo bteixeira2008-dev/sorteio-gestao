@@ -1,78 +1,229 @@
-function pad(n){ return String(n).padStart(2,'0'); }
-
-function normalizeTicket(value){
-  const digits = String(value).replace(/\D/g,'').slice(0,4);
-  return digits.padStart(4,'0');
+:root{
+  --red:#b41914;
+  --dark:#151515;
+  --muted:#666;
+  --bg:#f7f4ef;
+  --card:#fff;
+  --gold:#d6a63b;
 }
-
-function updateCountdown(){
-  const target = new Date(SORTEIO.data).getTime();
-  const now = Date.now();
-  const diff = target - now;
-
-  if(diff <= 0){
-    document.getElementById('days').textContent = '00';
-    document.getElementById('hours').textContent = '00';
-    document.getElementById('minutes').textContent = '00';
-    document.getElementById('seconds').textContent = '00';
-    document.getElementById('status').textContent = SORTEIO.publicado
-      ? 'Resultados publicados'
-      : 'Sorteio realizado. Resultados em publicação.';
-    return;
-  }
-
-  const days = Math.floor(diff / (1000*60*60*24));
-  const hours = Math.floor((diff / (1000*60*60)) % 24);
-  const minutes = Math.floor((diff / (1000*60)) % 60);
-  const seconds = Math.floor((diff / 1000) % 60);
-
-  document.getElementById('days').textContent = days;
-  document.getElementById('hours').textContent = pad(hours);
-  document.getElementById('minutes').textContent = pad(minutes);
-  document.getElementById('seconds').textContent = pad(seconds);
-  document.getElementById('status').textContent = `Faltam ${days} dias para o sorteio`;
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial, Helvetica, sans-serif;
+  background:linear-gradient(135deg,#fff,var(--bg));
+  color:var(--dark);
 }
-
-function renderWinners(){
-  if(!SORTEIO.publicado){ return; }
-  document.getElementById('winner1').textContent = SORTEIO.vencedores.primeiro || 'A anunciar';
-  document.getElementById('winner2').textContent = SORTEIO.vencedores.segundo || 'A anunciar';
-  document.getElementById('winner3').textContent = SORTEIO.vencedores.terceiro || 'A anunciar';
+.page{
+  width:min(1100px,92vw);
+  margin:0 auto;
+  padding:28px 0 40px;
 }
-
-function checkTicket(){
-  const value = document.getElementById('searchInput').value;
-  const ticket = normalizeTicket(value);
-  const result = document.getElementById('searchResult');
-
-  if(!value.trim()){
-    result.textContent = 'Insere o número da rifa.';
-    return;
-  }
-
-  if(!SORTEIO.publicado){
-    result.textContent = `Rifa ${ticket}: o sorteio ainda não foi publicado.`;
-    return;
-  }
-
-  if(ticket === SORTEIO.vencedores.primeiro){
-    result.textContent = `Parabéns! Rifa ${ticket} ganhou o 1.º prémio.`;
-  } else if(ticket === SORTEIO.vencedores.segundo){
-    result.textContent = `Parabéns! Rifa ${ticket} ganhou o 2.º prémio.`;
-  } else if(ticket === SORTEIO.vencedores.terceiro){
-    result.textContent = `Parabéns! Rifa ${ticket} ganhou o 3.º prémio.`;
-  } else {
-    result.textContent = `Rifa ${ticket}: não premiada.`;
-  }
+.hero,.card,.searchbox{
+  background:#fff;
+  border-radius:24px;
+  box-shadow:0 12px 36px rgba(0,0,0,.08);
+  border:1px solid rgba(0,0,0,.06);
 }
-
-const input = document.getElementById('searchInput');
-if(input){
-  input.addEventListener('input', function(){
-    this.value = this.value.replace(/\D/g,'').slice(0,4);
-  });
+.hero{
+  padding:32px 24px;
 }
-
-updateCountdown();
-renderWinners();
-setInterval(updateCountdown, 1000);
+.badge{
+  display:inline-block;
+  background:var(--red);
+  color:#fff;
+  padding:8px 14px;
+  border-radius:999px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.6px;
+  font-size:13px;
+  margin-bottom:20px;
+}
+.hero-top{
+  display:flex;
+  gap:24px;
+  align-items:center;
+  justify-content:space-between;
+}
+.hero-copy{flex:1}
+.hero-logo{
+  flex:0 0 240px;
+  text-align:right;
+}
+.hero-logo img{
+  max-width:220px;
+  width:100%;
+  height:auto;
+}
+h1{
+  margin:0 0 6px;
+  font-size:clamp(42px,7vw,74px);
+  line-height:.95;
+}
+.subtitle{
+  margin:0;
+  color:var(--muted);
+  font-size:18px;
+}
+.countdown{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+  margin:26px 0 16px;
+  max-width:760px;
+}
+.countdown div{
+  background:#111;
+  color:#fff;
+  border-radius:18px;
+  padding:18px 10px;
+  text-align:center;
+}
+.countdown strong{
+  display:block;
+  font-size:clamp(30px,5vw,54px);
+}
+.countdown span{
+  color:#ddd;
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
+.status{
+  color:var(--red);
+  font-size:20px;
+  font-weight:700;
+  margin:0;
+}
+.section-title{
+  padding:18px 4px 2px;
+}
+.section-title h2{
+  margin:0 0 4px;
+  font-size:34px;
+}
+.section-title p{
+  margin:0;
+  color:var(--muted);
+}
+.cards{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+  margin:16px 0 22px;
+}
+.card{
+  padding:20px;
+  text-align:center;
+}
+.prize-rank{
+  display:inline-block;
+  background:var(--gold);
+  color:#fff;
+  font-weight:700;
+  border-radius:999px;
+  padding:6px 12px;
+  margin-bottom:12px;
+}
+.prize-img{
+  width:100%;
+  max-height:180px;
+  object-fit:contain;
+  margin:4px 0 8px;
+}
+.card h3{
+  margin:4px 0 8px;
+  font-size:24px;
+}
+.winner{
+  margin:0;
+  color:var(--red);
+  font-weight:900;
+  font-size:28px;
+}
+.searchbox{
+  padding:24px;
+  margin-top:18px;
+}
+.searchbox.small{margin-top:16px}
+.searchbox h2{
+  margin:0 0 8px;
+  font-size:30px;
+}
+.searchbox p{
+  margin:0 0 16px;
+  color:#555;
+}
+.form-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+}
+.form-grid label{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  font-weight:700;
+  color:#333;
+}
+.form-grid input{
+  width:100%;
+}
+input{
+  font-size:17px;
+  padding:14px 14px;
+  border-radius:14px;
+  border:2px solid #ddd;
+}
+button{
+  background:var(--red);
+  color:#fff;
+  border:0;
+  border-radius:14px;
+  padding:14px 22px;
+  font-size:17px;
+  font-weight:700;
+  cursor:pointer;
+}
+.form-grid button{
+  grid-column:1 / -1;
+  justify-self:start;
+}
+.note{
+  margin-top:14px;
+  background:#fff7e8;
+  border:1px solid #f0d28b;
+  padding:12px 14px;
+  border-radius:12px;
+  color:#5f4b16;
+  font-size:14px;
+}
+code{
+  background:#f3f3f3;
+  padding:2px 6px;
+  border-radius:6px;
+}
+.row{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+.row input{width:180px}
+.result{
+  min-height:28px;
+  margin-top:14px !important;
+  font-size:20px;
+  font-weight:700;
+  color:#222;
+}
+@media(max-width:900px){
+  .cards{grid-template-columns:1fr}
+  .hero-top{flex-direction:column;align-items:flex-start}
+  .hero-logo{text-align:left}
+}
+@media(max-width:760px){
+  .countdown{grid-template-columns:repeat(2,1fr)}
+  .form-grid{grid-template-columns:1fr}
+  .row{flex-direction:column;align-items:stretch}
+  .row input, .row button{width:100%}
+}
