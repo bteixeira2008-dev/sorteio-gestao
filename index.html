@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sorteio de Verão | Comissão de Festas de Gestão</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="badge">Comissão de Festas de Gestão</div>
+      <div class="hero-top">
+        <div class="hero-copy">
+          <h1>Sorteio de Verão</h1>
+          <p class="subtitle">Universidade do Minho · Escola de Economia e Gestão</p>
+          <div id="countdown" class="countdown">
+            <div><strong id="days">--</strong><span>dias</span></div>
+            <div><strong id="hours">--</strong><span>horas</span></div>
+            <div><strong id="minutes">--</strong><span>min</span></div>
+            <div><strong id="seconds">--</strong><span>seg</span></div>
+          </div>
+          <p id="status" class="status"></p>
+        </div>
+        <div class="hero-logo">
+          <img src="assets/uminho_eeg_logo.png" alt="Universidade do Minho - Escola de Economia e Gestão">
+        </div>
+      </div>
+    </section>
+
+    <section class="section-title">
+      <h2>Prémios</h2>
+      <p>Consulta os prémios do sorteio.</p>
+    </section>
+
+    <section class="cards">
+      <article class="card">
+        <div class="prize-rank">1.º Prémio</div>
+        <img class="prize-img" src="assets/cabaz.png" alt="Cabaz Alimentar">
+        <h3>Cabaz Alimentar</h3>
+        <p id="winner1" class="winner">A anunciar</p>
+      </article>
+
+      <article class="card">
+        <div class="prize-rank">2.º Prémio</div>
+        <img class="prize-img" src="assets/ventoinha.png" alt="Ventoinha">
+        <h3>Ventoinha</h3>
+        <p id="winner2" class="winner">A anunciar</p>
+      </article>
+
+      <article class="card">
+        <div class="prize-rank">3.º Prémio</div>
+        <img class="prize-img" src="assets/vinho.png" alt="Garrafa de Vinho">
+        <h3>Garrafa de Vinho</h3>
+        <p id="winner3" class="winner">A anunciar</p>
+      </article>
+    </section>
+
+    <section class="searchbox">
+      <h2>Inscreve a tua rifa</h2>
+      <p>Regista o número da tua rifa e os teus dados para receberes os resultados no dia do sorteio.</p>
+
+      <form class="form-grid" action="https://formspree.io/f/mkoazwbq" method="POST">
+        <label>
+          Número da rifa
+          <input name="rifa" type="text" inputmode="numeric" maxlength="4" placeholder="Ex: 0123" required>
+        </label>
+        <label>
+          Nome
+          <input name="nome" type="text" placeholder="O teu nome" required>
+        </label>
+        <label>
+          Contacto
+          <input name="contacto" type="text" placeholder="Telemóvel / WhatsApp" required>
+        </label>
+        <label>
+          E-mail
+          <input name="email" type="email" placeholder="teu@email.com" required>
+        </label>
+
+        <input type="hidden" name="_subject" value="Nova inscrição de rifa">
+        <button type="submit">Registar rifa</button>
+      </form>
+
+      <div class="note">
+        <strong>Nota:</strong> para a recolha funcionar online, substitui o endereço
+        <code>SEU_ENDPOINT_AQUI</code> por um endpoint do Formspree ou outro serviço de formulários.
+      </div>
+    </section>
+
+    <section class="searchbox small">
+      <h2>Consulta a tua rifa</h2>
+      <p>Depois da publicação dos resultados, podes verificar se a tua rifa foi premiada.</p>
+      <div class="row">
+        <input id="searchInput" type="text" inputmode="numeric" maxlength="4" placeholder="Ex: 0001">
+        <button type="button" onclick="checkTicket()">Verificar</button>
+      </div>
+      <p id="searchResult" class="result"></p>
+    </section>
+  </main>
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
