@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sorteio de Verão</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <div class="badge">Sorteio na plataforma</div>
+      <h1>Sorteio de Verão</h1>
+      <p>Comissão de Festas Gestão · Universidade do Minho</p>
+
+      <div class="countdown">
+        <div><strong id="days">--</strong><span>dias</span></div>
+        <div><strong id="hours">--</strong><span>horas</span></div>
+        <div><strong id="minutes">--</strong><span>min</span></div>
+        <div><strong id="seconds">--</strong><span>seg</span></div>
+      </div>
+
+      <h2 id="status">A carregar...</h2>
+    </section>
+
+    <section class="prizes">
+      <div class="card"><b>1.º Prémio</b><h3>Cabaz Alimentar</h3><p id="winner1">A anunciar</p></div>
+      <div class="card"><b>2.º Prémio</b><h3>Ventoinha</h3><p id="winner2">A anunciar</p></div>
+      <div class="card"><b>3.º Prémio</b><h3>Garrafa de Vinho</h3><p id="winner3">A anunciar</p></div>
+    </section>
+
+    <section class="search">
+      <h2>Consulta a tua rifa</h2>
+      <p>Insere o número da tua rifa para verificar se foi premiada.</p>
+      <input id="searchInput" maxlength="4" placeholder="0001">
+      <button onclick="checkTicket()">Verificar</button>
+      <p id="searchResult"></p>
+    </section>
+
+    <footer>
+      <b>Segue o sorteio</b><br>
+      Resultados oficiais publicados nesta página.
+    </footer>
+  </main>
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
